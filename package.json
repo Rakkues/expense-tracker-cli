@@ -17,8 +17,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {},
   "dependencies": {
-    "commander": "^14.0.3"
+    "commander": "^14.0.3",
+    "date-fns": "^4.1.0"
   }
 }
