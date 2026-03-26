@@ -1,0 +1,24 @@
+{
+  "name": "expense-tracker-cli",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Rakkues/expense-tracker-cli#readme",
+  "bugs": {
+    "url": "https://github.com/Rakkues/expense-tracker-cli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rakkues/expense-tracker-cli.git"
+  },
+  "license": "ISC",
+  "author": "rakkues",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "commander": "^14.0.3"
+  }
+}
