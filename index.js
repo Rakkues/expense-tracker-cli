@@ -37,8 +37,23 @@ program
 program
   .command("list")
   .description("List out all expenses")
-  .action(() => {
-    console.table([1, "2024-0806", "Lunch", "20"]);
+  .action(async () => {
+    let expenses = await readJsonFile();
+    console.table(expenses);
+  });
+
+program
+  .command("summary")
+  .description("Prints the total expenses")
+  .action(async () => {
+    let expenses = await readJsonFile();
+    let totalExpense = 0;
+
+    for (let i = 0; i < expenses.length; i++) {
+      totalExpense += Number(expenses[i].amount);
+    }
+
+    console.log(`Total expenses: $${totalExpense}`);
   });
 
 program.parse();

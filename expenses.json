@@ -10,5 +10,11 @@
     "date": "2026-03-26",
     "description": "food",
     "amount": "10"
+  },
+  {
+    "id": 1774528848082,
+    "date": "2026-03-26",
+    "description": "iphone",
+    "amount": "1000.5"
   }
 ]
