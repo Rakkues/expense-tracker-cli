@@ -1,5 +1,5 @@
 import * as fs from "fs/promises";
-import { format } from "date-fns";
+import { format, getMonth, parseISO } from "date-fns";
 import { Command } from "commander";
 
 class Expense {
@@ -45,12 +45,22 @@ program
 program
   .command("summary")
   .description("Prints the total expenses")
-  .action(async () => {
+  .option("--month <number>", "Filter total expense for the selected month")
+  .action(async (options) => {
     let expenses = await readJsonFile();
+    let monthlyExpenses = [];
     let totalExpense = 0;
 
-    for (let i = 0; i < expenses.length; i++) {
-      totalExpense += Number(expenses[i].amount);
+    if (options.month) {
+      monthlyExpenses = expenses.filter((expense) => {
+        return getMonth(parseISO(expense.date)) === options.month - 1;
+      });
+    } else {
+      monthlyExpenses = expenses;
+    }
+
+    for (let i = 0; i < monthlyExpenses.length; i++) {
+      totalExpense += Number(monthlyExpenses[i].amount);
     }
 
     console.log(`Total expenses: $${totalExpense}`);
