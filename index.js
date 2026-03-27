@@ -24,6 +24,11 @@ program
   .option("--description <string>", "Expense description")
   .option("--amount <number>", "Expense amount")
   .action(async (options) => {
+    if (options.amount <= 0) {
+      console.log("Please input an expense amount greater than 0");
+      return;
+    }
+
     let expense = new Expense(options.description, options.amount);
 
     let expenses = await readJsonFile();
