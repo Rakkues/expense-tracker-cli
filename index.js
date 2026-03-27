@@ -35,6 +35,18 @@ program
   });
 
 program
+  .command("delete")
+  .option("--id <index>", "Delete expense at the selected index")
+  .action(async (options) => {
+    let expenses = await readJsonFile();
+    let monthlyExpenses = expenses.filter((expense) => {
+      return expense !== expenses[options.id];
+    });
+
+    await writeJsonFile(monthlyExpenses, "Expense deleted successfully");
+  });
+
+program
   .command("list")
   .description("List out all expenses")
   .action(async () => {
