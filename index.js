@@ -1,5 +1,5 @@
 import * as fs from "fs/promises";
-import { format, getMonth, parseISO } from "date-fns";
+import { format, getMonth, setMonth, parseISO } from "date-fns";
 import { Command } from "commander";
 
 class Expense {
@@ -39,6 +39,11 @@ program
   .option("--id <index>", "Delete expense at the selected index")
   .action(async (options) => {
     let expenses = await readJsonFile();
+    if (options.id < 0 || options.id >= expenses.length) {
+      console.log("Invalid index");
+      return;
+    }
+
     let monthlyExpenses = expenses.filter((expense) => {
       return expense !== expenses[options.id];
     });
@@ -67,15 +72,23 @@ program
       monthlyExpenses = expenses.filter((expense) => {
         return getMonth(parseISO(expense.date)) === options.month - 1;
       });
+
+      for (let i = 0; i < monthlyExpenses.length; i++) {
+        totalExpense += Number(monthlyExpenses[i].amount);
+      }
+
+      console.log(
+        `Total expenses for ${format(setMonth(new Date(), options.month - 1), "MMMM")}: $${totalExpense}`,
+      );
     } else {
       monthlyExpenses = expenses;
-    }
 
-    for (let i = 0; i < monthlyExpenses.length; i++) {
-      totalExpense += Number(monthlyExpenses[i].amount);
-    }
+      for (let i = 0; i < monthlyExpenses.length; i++) {
+        totalExpense += Number(monthlyExpenses[i].amount);
+      }
 
-    console.log(`Total expenses: $${totalExpense}`);
+      console.log(`Total expenses: $${totalExpense}`);
+    }
   });
 
 program.parse();
